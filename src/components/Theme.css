@@ -1,3 +1,9 @@
+@media screen and (max-width: 1440px) {
+    .theme {
+        display: none;
+    }
+}
+
 .theme {
     position: absolute;
     top: 0;

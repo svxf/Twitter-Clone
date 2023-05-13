@@ -1,9 +1,8 @@
 .feed {
-    width: 100%;
-    max-width: 600px;
-    /* flex: 0.4; */
+    /* width: 100%; */
+    /* max-width: 600px; */
+    flex: 0.4;
 
-    border-right: 1px solid var(--border-color);
 
     min-width: fit-content;
     overflow-y: scroll;

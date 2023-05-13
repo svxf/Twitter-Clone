@@ -3,6 +3,7 @@
     .profile {
         margin-top: 40px;
         width: min-content!important;
+        margin-right:-2px;
     }
     .profile__names {
         display: none!important;

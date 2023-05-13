@@ -22,8 +22,8 @@
     }
 }
 .sidebar {  
-    /* flex: 0.3; */
-    width: 275px;
+    flex: 0.3;
+    /* width: 275px; */
     /* min-width: 250px; */
     /* margin-top: 20px; */
     padding-top: 16px;
