@@ -1,0 +1,64 @@
+* {
+  transition: background-color 0.015s, border-color 0.015s ease, color 0.01s;
+}
+
+.light {
+  --accent-color: #50b7f5;
+  --background-color: #e6ecf0;
+
+  --button-color-hover: #e8f5fe;
+
+  --text-color: white;
+  --text-color-hovered: rgb(29, 155, 240);
+  --text-color-selected: #50b7f5;
+  --text-color-non: black;
+
+  --footer-text-color: rgb(113, 118, 123);
+
+  --border-color: #e6ecf0;
+  --header-color: rgba(255,255,255,0.65);
+
+  --search-con: #e6ecf0;
+  --widgets: #f5f8fa;
+}
+.dark {
+  --accent-color: rgb(29, 155, 240);
+  --background-color: #000000;
+
+  --button-color-hover: rgba(231, 233, 234, 0.1);
+
+  --text-color: rgb(231, 233, 234); 
+  --text-color-hovered: rgb(231, 233, 234); 
+  --text-color-selected: rgb(231, 233, 234);
+  --text-color-non: rgb(231, 233, 234);
+
+  --footer-text-color: rgb(113, 118, 123);
+
+  --border-color: #2c3434;
+  --header-color: rgba(0, 0, 0, 0.65);
+
+  --search-con: rgb(32, 35, 39);
+  --widgets: rgb(22, 24, 28);
+
+  background-color: var(--background-color);
+}
+
+*:focus {
+  outline: none!important;
+
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 10px;
+}
+
+.MuiAvatar-root  {
+  width: 48px !important;
+  height: 48px !important;
+}
