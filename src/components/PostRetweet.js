@@ -19,6 +19,7 @@ const PostRetweet = forwardRef(({
     verified,
     text,
     image,
+    type,
     avatar, 
 
     comments,
@@ -92,7 +93,8 @@ const PostRetweet = forwardRef(({
             username: 'svxf',
             verified: true,
             text: `retweet: ${text}`,
-            image: ``,
+            image: image ? image : null,
+            type: `${type}`,
             avatar:
                 "https://avatars.githubusercontent.com/u/60079016",
             comments: 0,
@@ -104,8 +106,27 @@ const PostRetweet = forwardRef(({
         .catch(error => console.log('Error adding post:', error));
     }
 
+    const handleShare = (e) => {
+        e.preventDefault();
+
+        navigator.clipboard.writeText(window.location.origin+'/'+id)
+
+        // Create the notification div
+        const notificationDiv = document.createElement("div");
+        notificationDiv.classList.add("Notification");
+        notificationDiv.textContent = "Copied to clipboard";
+
+        // Append the notification div to the document
+        document.body.appendChild(notificationDiv);
+
+        // Remove the notification div after 3 seconds
+        setTimeout(() => {
+            notificationDiv.remove();
+        }, 3000);
+    }
+
     return (
-        <div className='post' ref={ref}>
+        <div className='post' id={id} ref={ref}>
             <div className='post__avatar'>
                 <Avatar src={avatar} />
 
@@ -131,7 +152,15 @@ const PostRetweet = forwardRef(({
                     </div>
                 </div>
                 <div className='post__retweetHolder'>
-                {image && <img src={image} alt='' />}
+                <div className='post__media'>
+                {image && (
+                type === "video" ? (
+                    <video controls src={image} alt="" />
+                ) : (
+                    <img src={image} alt="" />
+                )
+                )}
+                </div>
                 </div>
                 {/* Footer */}
                 <div className='post__footer'>
@@ -143,7 +172,7 @@ const PostRetweet = forwardRef(({
                     <FavoriteBorderIcon onClick={handleLike} fontSize="small" />
                     )}
                     <span>{likes}</span>
-                    <FileUploadOutlinedIcon fontSize="small" />
+                    <FileUploadOutlinedIcon onClick={handleShare} fontSize="small" />
                 </div>
             </div>
         </div>

@@ -32,12 +32,36 @@
     border-right: 1px solid var(--border-color);
 }
 
+.sidebar__twitterIconDiv {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+
+    /* margin-left: 20px; */
+    margin-bottom: 20px;
+    
+
+     width: 52px;
+     height: 52px;
+}
+
+.sidebar__twitterIconDiv:hover {
+    /* color: black; */
+    background-color: var(--button-color-hover);
+    border-radius: 9999px;
+}
+
 .sidebar__twitterIcon {
     color: var(--text-color-selected);
-    font-size: 30px !important;
-    margin-left: 20px;
-    margin-bottom: 20px;
+    font-size: 36px !important;
+
+    margin-left: auto;
+    margin-right: auto;
+    /* margin-left: 20px;
+    margin-bottom: 20px; */
 }
+
 
 .sidebar__tweet {
     background-color: var(--accent-color) !important;

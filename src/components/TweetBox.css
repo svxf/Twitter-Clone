@@ -1,50 +1,145 @@
 .tweetBox {
-    padding-bottom: 10px;
-    padding-right: 10px;
-    border-bottom: 1px solid var(--border-color);
+	padding-bottom: 10px;
+	padding-right: 10px;
+	border-bottom: 1px solid var(--border-color);
 }
 
-.tweetBox > form {
-    display: flex;
-    flex-direction: column;
+.tweetBox>form {
+	display: flex;
+	flex-direction: column;
 }
 
 .tweetBox__input {
-    display: flex;
-    padding: 20px;
+	display: flex;
+	padding: 20px;
 }
 
-.tweetBox__input > input {
-    background-color: transparent;
-    color: var(--text-color-non);
-    flex: 1;
-    margin-left: 20px;
-    font-size: 20px;
-    border: none;
+.tweetBox__input>input {
+	background-color: transparent;
+	color: var(--text-color-non);
+	flex: 1;
+	margin-left: 20px;
+	font-size: 20px;
+	border: none;
+}
+
+.tweetBox_buttons {
+	display: flex;
+	margin-top: 20px !important;
+	margin-left: auto !important;
+
+	align-items: center;
+	gap: 15px;
+}
+
+.tweetBox__buttons2 {
+	display: flex;
+	margin-top: 20px !important;
+	margin-left: auto !important;
+
+	align-items: center;
+	gap: 10px;
+	/* margin-left: 50px; */
 }
 
 .tweetBox__tweetButton {
-    background-color: var(--accent-color) !important;
-    border: none !important;
+	background-color: var(--accent-color) !important;
+	border: none !important;
 
-    color: white !important;
-    font-weight: 900 !important;
-    text-transform: inherit !important;
+	color: white !important;
+	font-weight: 900 !important;
+	text-transform: inherit !important;
 
-    border-radius: 30px !important;
-    width: 80px;
-    height: 40px !important;
-    margin-top: 20px !important;
-    margin-left: auto !important;
+	border-radius: 30px !important;
+	width: 80px;
+	height: 40px !important;
+	/* margin-top: 20px !important; */
+	/* margin-left: auto !important; */
 
-    transition: opacity 0.2s!important;
+	transition: opacity 0.2s !important;
 }
 
 .tweetBox__tweetButton:disabled {
-    opacity: 0.5;
+	opacity: 0.5;
 }
+
+.tweetBox__imageButton {
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	width: 36px !important;
+    min-width: 36px !important;
+	height: 36px !important;
+    min-height: 36px !important;
+	border: none !important;
+	background-color: transparent !important;
+	color: var(--accent-color) !important;
+	cursor: pointer !important;
+	padding: 10px !important;
+    border-radius: 9999px !important;
+}
+
+.tweetBox__imageButton:hover {
+	background-color: var(--accent-color-trans) !important;
+}
+
 .tweetBox__imageInput {
-    background-color: transparent;
-    border: none;
-    padding: 10px;
+	background-color: transparent;
+	border: none;
+	padding: 10px;
+}
+
+.tweetBox__Holder {
+	padding-left: 20px;
+}
+
+.tweetBox__mediaHolder {
+	background-color: var(--widgets);
+	border-radius: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* padding: 10px; */
+	margin-top: 10px;
+
+	max-width: 320px;
+	/* max-height: 240px; */
+}
+
+.tweetBox__mediaHolder img,
+.tweetBox__mediaHolder video {
+	max-width: 100%;
+	max-height: 100%;
+	border-radius: 20px;
+}
+
+
+/* popup */
+.MuiDialog-paper {
+	display: flex;
+	flex-direction: column;
+}
+
+.MuiDialogContent-root {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.MuiDialogActions-root {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.MuiDialogTitle-root {
+    text-align: center;
+}
+
+label[for="image-input"] {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

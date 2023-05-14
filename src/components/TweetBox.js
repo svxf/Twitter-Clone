@@ -1,57 +1,213 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import "./TweetBox.css";
 
-import { Avatar, Button } from "@mui/material"
+import {
+  Avatar,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
+import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 
-import db from './firebase'
+import db from "./firebase";
 
 function TweetBox() {
-  const [tweetMessage, setTweetMessage] = useState('');
-  const [tweetImage, setTweetImage] = useState('');
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [tweetMessage, setTweetMessage] = useState("");
+  const [tweetImage, setTweetImage] = useState(null);
+  const [tweetType, setTweetType] = useState("");
+  const [tweetUrl, setTweetUrl] = useState("");
 
-  const sendTweet = e => {
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      setTweetImage(event.target.result);
+    };
+
+    if (file) {
+      // check if file type is image or video
+      if (file.type.includes("image")) {
+        setTweetType("image");
+      } else if (file.type.includes("video")) {
+        setTweetType("video");
+      } else {
+        setTweetType("");
+      }
+      reader.readAsDataURL(file);
+      setIsDialogOpen(false);
+    }
+  };
+
+  const handleUrlSubmit = (e) => {
+    e.preventDefault();
+    if (tweetUrl) {
+      const extension = tweetUrl.split(".").pop().toLowerCase();
+      if (
+        extension === "gif" ||
+        extension === "webp" ||
+        extension === "png" ||
+        extension === "jpeg" ||
+        extension === "jpg"
+      ) {
+        setTweetType("image");
+      } else if (
+        extension === "mp4" ||
+        extension === "webm" ||
+        extension === "ogg" ||
+        extension === "mov"
+      ) {
+        setTweetType("video");
+      } else {
+        console.log("A")
+        setTweetImage(null)
+      }
+      if (tweetType !== null)
+        setTweetImage(tweetUrl);
+      else
+        setTweetImage("");
+      setTweetUrl("");
+      setIsDialogOpen(false);
+    }
+  };
+
+  const sendTweet = (e) => {
     e.preventDefault();
 
     const timestamp = Date.now();
 
-    db.collection('posts').add({
+    db.collection("posts").add({
       id: timestamp,
-      displayName: 'svxf',
-      username: 'svxf',
+      displayName: "svxf",
+      username: "svxf",
       verified: true,
       text: tweetMessage,
       image: tweetImage,
-      avatar:
-        "https://avatars.githubusercontent.com/u/60079016",
+      type: tweetType,
+      avatar: "https://avatars.githubusercontent.com/u/60079016",
       comments: 0,
       retweets: 0,
       likes: 0,
       timestamp,
     });
 
-    setTweetMessage('');
-    setTweetImage('');
-  }
+    setTweetMessage("");
+    setTweetImage(null);
+    setTweetType("");
+  };
 
   return (
-    <div className='tweetBox'>
-        <form>
-            <div className='tweetBox__input'>
-                <Avatar src="https://avatars.githubusercontent.com/u/60079016" />
-                <input onChange={(e) => setTweetMessage(e.target.value)} value={tweetMessage} placeholder="What's happening?!" type="text" />
-            </div>
-            <input
-              onChange={(e) => setTweetImage(e.target.value)}
-              value={tweetImage}
-              className="tweetBox__imageInput" 
-              placeholder="Enter image URL" 
-              type="text" 
-            />
-            
-            <Button disabled={!tweetMessage.trim()} onClick={sendTweet} type="submit" className="tweetBox__tweetButton">Tweet</Button>
-        </form>
+    <div className="tweetBox">
+      <form>
+        <div className="tweetBox__input">
+          <Avatar src="https://avatars.githubusercontent.com/u/60079016" />
+          <input
+            onChange={(e) => setTweetMessage(e.target.value)}
+            value={tweetMessage}
+            placeholder="What's happening?!"
+            type="text"
+          />
+        </div>
+        <div className="tweetBox__Holder">
+          <div className="tweetBox__mediaHolder">
+            {tweetImage &&
+              (tweetType === "image" ? (
+                <img src={tweetImage} alt="" />
+              ) : (
+                <video controls src={tweetImage} alt="" />
+              ))}
+          </div>
+        </div>
+        {/* <div className='tweetBox_buttons'>
+              <label className="tweetBox__imageButton" htmlFor="image-input">
+                  <input
+                    id="image-input"
+                    onChange={handleImageUpload}
+                    className="tweetBox__imageInput"
+                    type="file"
+                    accept="image/*,video/*"
+                    style={{ display: 'none' }}
+                  />
+                  <ImageOutlinedIcon />
+                </label>
+              <Button disabled={!tweetMessage.trim()} onClick={sendTweet} type="submit" className="tweetBox__tweetButton">Tweet</Button>
+            </div> */}
+        <div className="tweetBox__buttons2">
+          {/* <label className="tweetBox__imageButton" htmlFor="image-input">
+                <input
+                  id="image-input"
+                  onChange={handleImageUpload}
+                  className="tweetBox__imageInput"
+                  type="file"
+                  accept="image/*,video/*"
+                  style={{ display: 'none' }}
+                />
+                
+              </label> */}
+          <Button
+            onClick={() => setIsDialogOpen(true)}
+            className="tweetBox__imageButton"
+          >
+            <ImageOutlinedIcon />
+          </Button>
+          <Button
+            disabled={!tweetMessage.trim()}
+            onClick={sendTweet}
+            type="submit"
+            className="tweetBox__tweetButton"
+          >
+            Tweet
+          </Button>
+        </div>
+        <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
+          {/* URL */}
+          <DialogTitle>Add Image or Video URL</DialogTitle>
+          <DialogContent>
+            <form onSubmit={handleUrlSubmit}>
+              <TextField
+                label="URL"
+                value={tweetUrl}
+                onChange={(e) => setTweetUrl(e.target.value)}
+                fullWidth
+                variant="outlined"
+              />
+            </form>
+          </DialogContent>
+          <Button onClick={handleUrlSubmit}>Add URL</Button>
+          <Button onClick={() => setIsDialogOpen(false)}>Cancel</Button>
+          {/* URL */}
+
+          {/* INPUT */}
+          <DialogTitle>Add Image or Video</DialogTitle>
+          <DialogContent>
+            <label htmlFor="image-input">
+              <input
+                id="image-input"
+                onChange={handleImageUpload}
+                className="tweetBox__imageInput"
+                type="file"
+                accept="image/*,video/*"
+                style={{ display: "none" }}
+              />
+              <Button
+                color="primary"
+                component="span"
+                startIcon={<ImageOutlinedIcon />}
+              >
+                Add
+              </Button>
+            </label>
+          </DialogContent>
+          {/* INPUT */}
+        </Dialog>
+        
+      </form>
     </div>
-  )
+  );
 }
 
-export default TweetBox
+export default TweetBox;

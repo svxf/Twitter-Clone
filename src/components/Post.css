@@ -11,6 +11,11 @@
     height: auto;
     filter: drop-shadow(0 0 0.25rem rgba(0, 0, 0, 0.103));
 
+    scroll-margin-top: 150px;
+}
+
+.post__outline {
+    border: 1px solid var(--text-color-selected);
 }
 
 .post__body {
@@ -18,16 +23,15 @@
     padding: 10px;
 }
 
-.post__body > img {
+.post__media {
+    /* padding: 10px; */
+    filter: drop-shadow(0 0 0.25rem rgba(0, 0, 0, 0.103));
+}
+.post__media > img {
     border-radius: 20px;
 }
-
-.post__retweetHolder {
-    background-color: var(--widgets);
-
+.post__media > video {
     border-radius: 20px;
-
-    /* height: 150px; */
 }
 
 .post__line {
@@ -56,6 +60,21 @@
 .post__headerDescription {
     margin-bottom: 10px;
     font-size: 15px;
+}
+.post__headerDescription > p {
+    width: 510px;
+    overflow-wrap: break-word;
+}
+.post__retweetHolder {
+    background-color: var(--widgets);
+
+    border-radius: 20px;
+
+    /* height: 150px; */
+}
+.post__retweetHolder > p {
+    width: 510px;
+    overflow-wrap: break-word;
 }
 
 .post__headerText > h3 {

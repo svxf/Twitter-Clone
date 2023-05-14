@@ -18,6 +18,7 @@ const Post = forwardRef(({
     verified,
     text,
     image,
+    type,
     avatar,
 
     comments,
@@ -90,7 +91,8 @@ const Post = forwardRef(({
             username: 'svxf',
             verified: true,
             text: `retweet: ${text}`,
-            image: `${image}`,
+            image: image ? image : null,
+            type: `${type}`,
             avatar:
                 "https://avatars.githubusercontent.com/u/60079016",
             comments: 0,
@@ -102,12 +104,30 @@ const Post = forwardRef(({
         .catch(error => console.log('Error adding post:', error));
     }
 
+    const handleShare = (e) => {
+        e.preventDefault();
+
+        navigator.clipboard.writeText(window.location.origin+'/'+id)
+
+        // Create the notification div
+        const notificationDiv = document.createElement("div");
+        notificationDiv.classList.add("Notification");
+        notificationDiv.textContent = "Copied to clipboard";
+
+        // Append the notification div to the document
+        document.body.appendChild(notificationDiv);
+
+        // Remove the notification div after 3 seconds
+        setTimeout(() => {
+            notificationDiv.remove();
+        }, 3000);
+    }
+
     const options = { month: 'long', day: 'numeric' };
     const readableTime = new Date(timestampO).toLocaleDateString(undefined, options);
 
-      
     return (
-    <div className='post' ref={ref}>
+    <div className='post' id={id} ref={ref}>
         <div className='post__avatar'>
             <Avatar src={avatar} />
         </div>
@@ -126,7 +146,16 @@ const Post = forwardRef(({
                     <p>{text}</p>
                 </div>
             </div>
-            {image && <img src={image} alt='' />}
+
+            <div className='post__media'>
+            {image && (
+            type === "video" ? (
+                <video controls src={image} alt="" />
+            ) : (
+                <img src={image} alt="" />
+            )
+            )}
+            </div>
             {/* Footer */}
             <div className='post__footer'>
                 <ModeCommentOutlinedIcon fontSize="small" /><span>{comments}</span>
@@ -137,7 +166,7 @@ const Post = forwardRef(({
                 <FavoriteBorderIcon onClick={handleLike} fontSize="small" />
                 )}
                 <span>{likes}</span>
-                <FileUploadOutlinedIcon fontSize="small" />
+                <FileUploadOutlinedIcon onClick={handleShare} fontSize="small" />
             </div>
         </div>
     </div>

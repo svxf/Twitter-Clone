@@ -19,7 +19,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 function Sidebar() {
   return (
     <div className='sidebar'>
-        <TwitterIcon className="sidebar__twitterIcon" />
+        <div className="sidebar__twitterIconDiv"><TwitterIcon className="sidebar__twitterIcon" /></div>
         {/* Option */}
         <SidebarOption active text="Home" Icon={HomeIcon} />
         <SidebarOption text="Settings" Icon={SearchIcon} />

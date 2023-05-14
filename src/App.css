@@ -4,6 +4,7 @@
 
 .light {
   --accent-color: #50b7f5;
+  --accent-color-trans: #50b6f548;
   --background-color: #e6ecf0;
   
   --button-color-hover: #e8f5fe;
@@ -61,4 +62,21 @@
 .MuiAvatar-root  {
   width: 48px !important;
   height: 48px !important;
+}
+
+.Notification {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(29, 155, 240);
+  color: white;
+  width: 185px;
+  height: 45px;
+
+  border-radius: 4px;
+
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -70%);
 }
