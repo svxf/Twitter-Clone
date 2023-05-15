@@ -1,4 +1,5 @@
-## [Preview](https://twitter-clone-5f618.web.app)
+# updating preview later
+
 ### If none of the posts are loading trying refreshing the page
 
 # Getting Started with Create React App
