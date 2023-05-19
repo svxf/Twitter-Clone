@@ -1,6 +1,24 @@
-# updating preview later
+# [Preview](https://twitter-clone-5f618.web.app)
 
-### If none of the posts are loading trying refreshing the page
+Twitter clone built in React using Firebase
+
+## Features 🎉
+
+- Firebase Authentication
+- Users can add tweets, like, and retweet
+- Users can add images, videos, and gifs to tweet (changing it to use firebase storage)
+- Realtime data from Twitter API
+- Dark and Light mode
+
+## Technology ⚒️
+
+- [React](https://react.dev)
+- [Firebase](https://firebase.google.com)
+- [Twitter Embed Api](https://github.com/saurabhnemade/react-twitter-embed)
+
+## If none of the posts are loading trying refreshing the page
+
+# Development 💻
 
 # Getting Started with Create React App
 
