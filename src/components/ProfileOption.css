@@ -1,23 +1,24 @@
 
 @media screen and (max-width: 1200px) {
-    .profile {
+    .profileOption {
         margin-top: 40px;
         width: min-content!important;
         margin-right:-2px;
     }
-    .profile__names {
+    .profileOption__names {
         display: none!important;
     }
-    .profile__special {
+    .profileOption__special {
         display: none!important;
     }
-    .profile__more {
+    .profileOption__more {
         display: none!important;
     }
 }
 
-.profile {
-    position: absolute;
+.profileOption {
+    position:absolute;
+    /* justify-content: flex-end; */
     bottom: 0;
     margin-bottom: 12px;
     margin-top: 12px;
@@ -38,7 +39,7 @@
 
 }
 
-.profile__names {
+.profileOption__names {
     flex-grow: 1;
     margin-left: 8px;
     display: flex;
@@ -49,15 +50,15 @@
     color: var(--text-color-non)
 }
 
-.profile__special {
+.profileOption__special {
     font-weight: 400;
     color: gray;
 }
 
-.profile__more {
+.profileOption__more {
     color: var(--text-color-non);
 }
 
-.profile:hover {
+.profileOption:hover {
     background-color: var(--button-color-hover);
 }

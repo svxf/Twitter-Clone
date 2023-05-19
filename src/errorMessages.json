@@ -1,0 +1,8 @@
+{
+  "auth/invalid-email": "Invalid email address.",
+  "auth/wrong-password": "Incorrect password.",
+  "auth/missing-password": "Missing password.",
+  "auth/user-not-found": "No account found.",
+  "auth/email-already-in-use": "Email in use.",
+  "auth/user-disabled": "Account is disabled."
+}

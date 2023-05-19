@@ -1,6 +1,8 @@
 import React, { forwardRef, useState } from 'react'
 import './Post.css'
 
+import { Link } from 'react-router-dom';
+
 import { Avatar } from "@mui/material"
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
@@ -128,9 +130,11 @@ const Post = forwardRef(({
 
     return (
     <div className='post' id={id} ref={ref}>
-        <div className='post__avatar'>
-            <Avatar src={avatar} />
-        </div>
+        <Link to={`/users/${username}`}>
+            <div className='post__avatar'>
+                <Avatar src={avatar} />
+            </div>
+        </Link>
         <div className='post__body'>
             {/* Header */}
             <div className='post__header'>

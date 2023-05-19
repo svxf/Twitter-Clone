@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 
-import db from "./firebase";
+import db, { auth } from "./firebase";
 
 function TweetBox() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -80,21 +80,57 @@ function TweetBox() {
 
     const timestamp = Date.now();
 
-    db.collection("posts").add({
-      id: timestamp,
-      displayName: "svxf",
-      username: "svxf",
-      verified: true,
-      text: tweetMessage,
-      image: tweetImage,
-      type: tweetType,
-      avatar: "https://avatars.githubusercontent.com/u/60079016",
-      comments: 0,
-      retweets: 0,
-      likes: 0,
-      timestamp,
-    });
+    const currentUser = auth.currentUser;
+    const uid = currentUser.uid;
 
+    console.log(uid)
+    db.collection("users")
+    .doc(uid)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        const userData = doc.data();
+        const username = userData.username;
+        const displayName = userData.username;
+
+        console.log(username);
+        console.log(displayName);
+
+        // Create the tweet document
+        db.collection("posts")
+          .add({
+            id: timestamp,
+            displayName: displayName,
+            username: username,
+            verified: true,
+            text: tweetMessage,
+            image: tweetImage,
+            type: tweetType,
+            avatar: "https://avatars.githubusercontent.com/u/60079016",
+            comments: 0,
+            retweets: 0,
+            likes: 0,
+            timestamp: timestamp,
+          })
+          .then(() => {
+            setTweetMessage("");
+            setTweetImage(null);
+            setTweetType("");
+          })
+          .catch((error) => {
+            // Handle error
+            console.log(error);
+          });
+      } else {
+        // User profile not found
+        console.log("User profile not found.");
+      }
+    })
+    .catch((error) => {
+      // Handle error
+      console.log(error);
+    });
+    
     setTweetMessage("");
     setTweetImage(null);
     setTweetType("");

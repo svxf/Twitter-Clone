@@ -14,6 +14,9 @@ function Feed() {
 
   const postId = window.location.pathname.substring(1);
 
+  /*
+  Fetch posts
+  */
   useEffect(() => {
     const unsubscribe = db.collection("posts").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
       const fetchedPosts = snapshot.docs.map((doc) => ({
@@ -23,7 +26,9 @@ function Feed() {
 
       setPosts(fetchedPosts);
 
-      // Check if the post ID from the URL matches one of the fetched posts
+      /*
+      Check if the post ID from the URL matches one of the fetched posts
+      */
       const matchedPost = fetchedPosts.find(post => post.id === parseInt(postId));
       if (matchedPost) {
         matchedPostRef.current = matchedPost.id;
@@ -35,8 +40,10 @@ function Feed() {
     };
   }, [postId]);
 
+  /*
+  Scroll to post
+  */
   useEffect(() => {
-    // If a post with the ID from the URL is found it will scroll to it
     if (matchedPostRef.current) {
       const matchedPostElement = document.getElementById(matchedPostRef.current);
       if (matchedPostElement) { 
@@ -50,23 +57,6 @@ function Feed() {
       }
     }
   }, [matchedPostRef.current]);
-
-
-  // useEffect(() => {
-  //   const unsubscribe = db.collection("posts").orderBy("timestamp", "desc").onSnapshot((snapshot) =>
-  //     setPosts(
-  //       snapshot.docs.map((doc) => ({
-  //         id: doc.id,
-  //         ...doc.data(),
-  //       }))
-  //     )
-  //   );
-
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, []);
-
 
   return (
     <div className="feed">

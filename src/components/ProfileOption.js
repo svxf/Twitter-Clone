@@ -1,25 +1,25 @@
 import React from 'react'
-import './Profile.css';
+import './ProfileOption.css';
 
 import { Avatar } from "@mui/material"
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
-function Profile() {
+function ProfileOption() {
   return (
-    <div className='profile'>
-        <div className='profile__avatar'>
+    <div className='profileOption'>
+        <div className='profileOption__avatar'>
             <Avatar src="https://avatars.githubusercontent.com/u/60079016" />
         </div>
-        <div className='profile__names'>
+        <div className='profileOption__names'>
             <span>svxf</span>
-            <span className='profile__special'>@svxf</span>
+            <span className='profileOption__special'>@svxf</span>
         </div>
 
-        <div className='profile__more'>
+        <div className='profileOption__more'>
             <MoreHorizIcon/>
         </div>
     </div>
   )
 }
 
-export default Profile
+export default ProfileOption
