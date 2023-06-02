@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./TweetBox.css";
 
 import {
   Avatar,
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogTitle,
   TextField,
 } from "@mui/material";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 
-import db, { auth } from "./firebase";
+import { getUserProfileById, getPFP, getCurrentUserData } from "../lib/firebase/utils";
+import db, { auth, storage } from "../lib/firebase/firebase";
 
 function TweetBox() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -20,6 +20,34 @@ function TweetBox() {
   const [tweetImage, setTweetImage] = useState(null);
   const [tweetType, setTweetType] = useState("");
   const [tweetUrl, setTweetUrl] = useState("");
+  const [pfp, setPFP] = useState("");
+
+  useEffect(() => {
+    const fetchInfo = async () => {
+      try {
+        const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
+          if (authUser) {
+            const userRef = db.doc(`users/${authUser.uid}`);
+            const snapshot = await userRef.get();
+  
+            if (snapshot.exists) {
+              const uid = await getCurrentUserData('uid')
+              const pfp = await getPFP(uid);
+              setPFP(pfp);
+            }
+          }
+        });
+  
+        return () => {
+          unsubscribe();
+        };
+      } catch (err) {
+        console.error(err);
+      }
+    };
+  
+    fetchInfo();
+  }, []);
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -30,7 +58,6 @@ function TweetBox() {
     };
 
     if (file) {
-      // check if file type is image or video
       if (file.type.includes("image")) {
         setTweetType("image");
       } else if (file.type.includes("video")) {
@@ -38,7 +65,28 @@ function TweetBox() {
       } else {
         setTweetType("");
       }
-      reader.readAsDataURL(file);
+
+      const storageRef = storage
+        .ref()
+        .child(`images/${auth.currentUser.uid}/${file.name}`);
+      storageRef.put(file).then(() => {
+        storageRef.getDownloadURL().then((url) => {
+          setTweetImage(url);
+        });
+      });
+
+      if (tweetImage) {
+        const previousStorageRef = storage.refFromURL(tweetImage);
+        previousStorageRef
+          .delete()
+          .then(() => {
+            console.log("Previous image deleted successfully");
+          })
+          .catch((error) => {
+            console.log("Error deleting previous image:", error);
+          });
+      }
+
       setIsDialogOpen(false);
     }
   };
@@ -63,50 +111,37 @@ function TweetBox() {
       ) {
         setTweetType("video");
       } else {
-        console.log("A")
-        setTweetImage(null)
+        setTweetImage(null);
       }
-      if (tweetType !== null)
-        setTweetImage(tweetUrl);
-      else
-        setTweetImage("");
+      if (tweetType !== null) setTweetImage(tweetUrl);
+      else setTweetImage("");
       setTweetUrl("");
       setIsDialogOpen(false);
     }
   };
 
-  const sendTweet = (e) => {
+  const sendTweet = async (e) => {
     e.preventDefault();
 
     const timestamp = Date.now();
-
     const currentUser = auth.currentUser;
     const uid = currentUser.uid;
 
-    console.log(uid)
-    db.collection("users")
-    .doc(uid)
-    .get()
-    .then((doc) => {
-      if (doc.exists) {
-        const userData = doc.data();
+    try {
+      const userData = await getUserProfileById(uid);
+      if (userData) {
         const username = userData.username;
-        const displayName = userData.username;
-
-        console.log(username);
-        console.log(displayName);
+        let imageURL = tweetImage;
 
         // Create the tweet document
         db.collection("posts")
           .add({
             id: timestamp,
-            displayName: displayName,
+            uid: uid,
             username: username,
-            verified: true,
             text: tweetMessage,
-            image: tweetImage,
+            image: imageURL,
             type: tweetType,
-            avatar: "https://avatars.githubusercontent.com/u/60079016",
             comments: 0,
             retweets: 0,
             likes: 0,
@@ -118,29 +153,21 @@ function TweetBox() {
             setTweetType("");
           })
           .catch((error) => {
-            // Handle error
             console.log(error);
           });
       } else {
-        // User profile not found
         console.log("User profile not found.");
       }
-    })
-    .catch((error) => {
-      // Handle error
+    } catch (error) {
       console.log(error);
-    });
-    
-    setTweetMessage("");
-    setTweetImage(null);
-    setTweetType("");
+    }
   };
 
   return (
     <div className="tweetBox">
       <form>
         <div className="tweetBox__input">
-          <Avatar src="https://avatars.githubusercontent.com/u/60079016" />
+          <Avatar src={pfp} />
           <input
             onChange={(e) => setTweetMessage(e.target.value)}
             value={tweetMessage}
@@ -158,32 +185,7 @@ function TweetBox() {
               ))}
           </div>
         </div>
-        {/* <div className='tweetBox_buttons'>
-              <label className="tweetBox__imageButton" htmlFor="image-input">
-                  <input
-                    id="image-input"
-                    onChange={handleImageUpload}
-                    className="tweetBox__imageInput"
-                    type="file"
-                    accept="image/*,video/*"
-                    style={{ display: 'none' }}
-                  />
-                  <ImageOutlinedIcon />
-                </label>
-              <Button disabled={!tweetMessage.trim()} onClick={sendTweet} type="submit" className="tweetBox__tweetButton">Tweet</Button>
-            </div> */}
         <div className="tweetBox__buttons2">
-          {/* <label className="tweetBox__imageButton" htmlFor="image-input">
-                <input
-                  id="image-input"
-                  onChange={handleImageUpload}
-                  className="tweetBox__imageInput"
-                  type="file"
-                  accept="image/*,video/*"
-                  style={{ display: 'none' }}
-                />
-                
-              </label> */}
           <Button
             onClick={() => setIsDialogOpen(true)}
             className="tweetBox__imageButton"
@@ -224,6 +226,7 @@ function TweetBox() {
               <input
                 id="image-input"
                 onChange={handleImageUpload}
+                // onChange={(e) => setTweetImage(e.target.files[0])}
                 className="tweetBox__imageInput"
                 type="file"
                 accept="image/*,video/*"
@@ -240,7 +243,6 @@ function TweetBox() {
           </DialogContent>
           {/* INPUT */}
         </Dialog>
-        
       </form>
     </div>
   );

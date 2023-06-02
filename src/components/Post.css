@@ -28,6 +28,7 @@
     filter: drop-shadow(0 0 0.25rem rgba(0, 0, 0, 0.103));
 }
 .post__media > img {
+    max-width: 450px;
     border-radius: 20px;
 }
 .post__media > video {
@@ -62,7 +63,7 @@
     font-size: 15px;
 }
 .post__headerDescription > p {
-    width: 510px;
+    width: 480px;
     overflow-wrap: break-word;
 }
 .post__retweetHolder {
@@ -73,7 +74,7 @@
     /* height: 150px; */
 }
 .post__retweetHolder > p {
-    width: 510px;
+    width: 480px;
     overflow-wrap: break-word;
 }
 

@@ -3,13 +3,11 @@ import React, { useState } from "react";
 import {
   auth,
   provider,
-  createUserProfileDocument,
-} from "./components/firebase";
-import db from "./components/firebase";
+} from "./lib/firebase/firebase";
 
 import errorMessages from "./errorMessages.json"
 
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 
@@ -19,11 +17,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import AppleIcon from '@mui/icons-material/Apple';
 
 function SignIn() {
-  const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
-
-  const [username, setUsername] = useState("");
-  const [dob, setDob] = useState("");
 
   const signInWithGoogle = () => {
     auth
@@ -39,8 +33,6 @@ function SignIn() {
       .signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
         const { uid } = userCredential.user;
-        console.log("User ID:", uid);
-        setLoggedIn(true);
         navigate("/");
       })
       .catch((error) => {

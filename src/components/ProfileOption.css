@@ -23,7 +23,9 @@
     margin-bottom: 12px;
     margin-top: 12px;
 
-    padding: 12px;
+    /* padding: 12px; */
+    padding-bottom: 4px;
+    padding-top: 4px;
     border-radius: 9999px;
     width: 259px;
 

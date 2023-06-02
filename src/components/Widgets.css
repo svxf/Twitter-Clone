@@ -1,8 +1,8 @@
 .widgets {
-    /* width: 350px; */
+    width: 350px;
     min-width: fit-content;
     overflow-y: scroll;
-    flex: 0.3;
+    /* flex: 0.3; */
 
     border-left: 1px solid var(--border-color);
 

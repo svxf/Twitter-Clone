@@ -1,11 +1,13 @@
 import React, {Fragment, useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
-import { getUserProfileByUsername } from '../components/firebase';
+import { getUserProfileByUsername } from '../lib/firebase/utils';
 
 import Sidebar from '../components/Sidebar';
 import Profile from './Profile';
 import Widgets from '../components/Widgets';
 import Theme from '../components/Theme';
+
+import Loading from '../Loading';
 
 function UserProfile() {
   const { username } = useParams();
@@ -25,14 +27,13 @@ function UserProfile() {
   }, [username]);
 
   if (userData === null) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
   
   return (
     <Fragment>
-        {/* {userData ? <h1>{userData.username}</h1> : <p>Loading...</p>} */}
         < Sidebar />
-        < Profile username={userData.username} />
+        < Profile data={userData} />
         < Widgets />
         < Theme />
     </Fragment>

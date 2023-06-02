@@ -9,7 +9,7 @@ import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 
-import db from './firebase';
+import db from '../lib/firebase/firebase';
 
 const PostRetweet = forwardRef(({
     id,

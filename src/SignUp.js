@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import {
   auth,
   provider,
-  createUserProfileDocument,
-} from "./components/firebase";
-import db from "./components/firebase";
+} from "./lib/firebase/firebase";
+import db from "./lib/firebase/firebase";
+import { createUserProfile } from "./lib/firebase/utils";
 
 import errorMessages from "./errorMessages.json"
 
@@ -37,7 +37,7 @@ function SignUp() {
           userRef.get().then((snapshot) => {
             if (!snapshot.exists) {
               if (username !== "" && username) {
-                createUserProfileDocument(user, { username, dob });
+                createUserProfile(user, { username, dob });
                 setLoggedIn(true);
               }
             } else {
@@ -71,7 +71,6 @@ function SignUp() {
   const signUpWithEmail = () => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
-    const username = document.getElementById("email").value;
 
     auth
       .createUserWithEmailAndPassword(email, password)
@@ -81,10 +80,8 @@ function SignUp() {
           const userRef = db.doc(`users/${user.uid}`);
           userRef.get().then((snapshot) => {
             if (!snapshot.exists) {
-              if (username) {
-                createUserProfileDocument(user, { username, dob });
-                setLoggedIn(true);
-              }
+              createUserProfile(user, { dob });
+              setLoggedIn(true);
             } else {
               setLoggedIn(true);
               navigate("/");
