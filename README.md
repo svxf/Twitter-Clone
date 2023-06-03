@@ -6,7 +6,7 @@ Twitter clone built in React using Firebase
 
 - Firebase Authentication
 - Users can add tweets, like, and retweet
-- Users can add images, videos, and gifs to tweet (changing it to use firebase storage)
+- Users can add media to their tweets
 - Realtime data from Twitter API
 - Dark and Light mode
 
