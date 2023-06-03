@@ -1,14 +1,18 @@
-# [Preview](https://twitter-clone-5f618.web.app)
+<div>
+  <img width="220" align="right" src="/assets/Twitter.png"/>
+  <br>
+  <h1>Twitter Clone</h1>
+  <p>Preview: https://twitter-clone-5f618.web.app</p>
+</div>
 
-Twitter clone built in React using Firebase
-
-## Features 🎉
-
-- Firebase Authentication
-- Users can add tweets, like, and retweet
-- Users can add media to their tweets
-- Realtime data from Twitter API
-- Dark and Light mode
+## ✨ Features
+- 🔒 Firebase Authentication
+- 📝 Post Tweets
+- 👍 Like tweets
+- 🔄 Retweet
+- 📷 Add media (images, videos, etc.) to your tweets
+- 🌐 Realtime data from the Twitter API
+- 🌑🌕 - Light and dark mode
 
 ## Technology ⚒️
 
@@ -16,13 +20,20 @@ Twitter clone built in React using Firebase
 - [Firebase](https://firebase.google.com)
 - [Twitter Embed Api](https://github.com/saurabhnemade/react-twitter-embed)
 
-## If none of the posts are loading trying refreshing the page
+## 💡 Goals
+✅ - Fully Implemented, ⚒️ Partially Implemented, ❌ - Not Implemented yet
 
-# Development 💻
+| Feature                                                        | State |
+|----------------------------------------------------------------|-------|
+| Basic Functionality                                            |  ✅  |
+| A complete redesign                                            |  ⚒️  |
+| Refactor retweeting code                                       |  ❌  |
 
-# Getting Started with Create React App
+## 🚀 Running
+Here's how you can get started:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- First, you need to download this repository. You can do this by [clicking here](https://github.com/svxf/Twitter-Clone/archive/refs/heads/master.zip).
+- Once the download is complete, extract the contents of the ZIP file to a location on your computer where you can easily find it.
 
 ## Available Scripts
 
@@ -60,33 +71,3 @@ If you aren't satisfied with the build tool and configuration choices, you can `
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
